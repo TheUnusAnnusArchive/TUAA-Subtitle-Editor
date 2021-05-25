@@ -1,0 +1,44 @@
+body {
+  overflow-x: hidden;
+  margin: 50px 0 50px 0;
+  background: #1c1c1e;
+  color: #ffffff;
+  text-align: center;
+  font-family: arial;
+}
+
+#back {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #ffffff;
+}
+
+.plyr {
+  display: inline-block !important;
+  border-radius: 10px;
+  width: 1000px;
+  height: 562.5px;
+}
+
+#info {
+  display: inline-block;
+  text-align: left;
+  margin: 30px 0 0 0;
+  width: 1000px;
+}
+
+#info h1, #info p {
+  margin: 0;
+}
+
+#info #title {
+  display: inline-block;
+}
+
+@media (max-width: 1000px) {
+  #info {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=main.css.map */

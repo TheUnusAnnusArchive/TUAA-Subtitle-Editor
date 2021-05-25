@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title id="pagetitle"></title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="//cdn.plyr.io/3.6.3/plyr.css" />
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <a href="#" id="back">Close</a>
+
+    <noscript><h1 style="color:#ff0000">PLEASE ENABLE JAVASCRIPT FOR THIS SITE TO WORK!</h1></noscript>
+
+    <video id="player" playsinline controls crossorigin="anonymous"></video>
+
+    <div id="info">
+      <h1 id="title">Fetching Metadata...</h1>
+      <p><span id="season"></span> - <span id="episode"></span></p>
+    </div>
+
+    <textarea id="subs" rows="5" cols="100" placeholder="everytime you click out of this box the current text inside it will be added to the video's captions for 10 seconds. (this system will be improved later)"></textarea>
+
+    <script src="//cdn.plyr.io/3.6.3/plyr.js"></script>
+    <script src="js/main.js" type="module"></script>
+  </body>
+</html>

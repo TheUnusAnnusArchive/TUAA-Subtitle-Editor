@@ -1,0 +1,100 @@
+body {
+  overflow-x: hidden;
+  margin: 50px 0 50px 0;
+  background: #1c1c1e;
+  color: #ffffff;
+  text-align: center;
+  font-family: arial;
+}
+
+#container {
+  display: inline-block;
+  max-width: 1000px;
+}
+
+#back {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #ffffff;
+}
+
+#searchbox {
+  width: 300px;
+  height: 30px;
+  padding-left: 5px;
+  border-radius: 10px;
+  border: none;
+  color: #ffffff;
+  background-color: #262629;
+  margin-bottom: 0px;
+}
+
+#searchbox:focus {
+  outline: none;
+}
+
+@media (max-width: 300px) {
+  #searchbox {
+    width: 100%;
+  }
+}
+
+#mainContent {
+  position: relative;
+  top: 30px;
+}
+
+#vidcontainer {
+  display: -ms-inline-grid;
+  display: inline-grid;
+  -ms-grid-columns: (auto)[3];
+      grid-template-columns: repeat(3, auto);
+  margin: 0;
+}
+
+#vidcontainer #video {
+  display: block;
+}
+
+#vidcontainer #video #url {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#vidcontainer #video #thumbnail {
+  border-radius: 10px;
+  height: 140.63px;
+}
+
+#vidcontainer #video #title {
+  margin: 5px 0 0 0;
+}
+
+#vidcontainer #video .se {
+  margin: 0 0 15px 0;
+  font-size: 13px;
+}
+
+@media (max-width: 766px) {
+  #vidcontainer {
+    -ms-grid-columns: (auto)[2];
+        grid-template-columns: repeat(2, auto);
+  }
+}
+
+@media (max-width: 516px) {
+  #vidcontainer {
+    -ms-grid-columns: auto;
+        grid-template-columns: auto;
+  }
+}
+
+.contact {
+  font-style: italic;
+}
+
+.contact a {
+  color: #ffffff;
+}
+/*# sourceMappingURL=main.css.map */

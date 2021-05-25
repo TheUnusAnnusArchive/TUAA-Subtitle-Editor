@@ -1,0 +1,35 @@
+#vidcontainer {
+  display: inline-grid;
+  grid-template-columns: repeat(3, auto);
+  margin: 0;
+
+  #video {
+    display: block;
+
+    #url {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    #thumbnail {
+      border-radius: $border-radius;
+      height: 140.63px;
+    }
+
+    #title {
+      margin: 5px 0 0 0;
+    }
+
+    .se {
+      margin: 0 0 15px 0;
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 766px) {
+    grid-template-columns: repeat(2, auto);
+  }
+  @media (max-width: 516px) {
+    grid-template-columns: auto;
+  }
+}
