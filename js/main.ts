@@ -9,7 +9,9 @@ fetch(`${api}/v2/metadata/video/all`).then(res => res.json()).then((metadata:any
   globalMetadata.videos = metadata
   for (var s = 0; s < metadata.length; s++) {
     for (var e = 0; e < metadata[s].length; e++) {
-      init(metadata[s][e])
+      if (!(s === 1 && e === 367)) {
+        init(metadata[s][e])
+      }
     }
   }
   document.querySelector('div#loadingText').remove()

@@ -1,18 +1,9 @@
 import { api } from '../../ts/_vars.js';
+import { Timeline } from './timeline.js';
+import { SubPanel, subs } from './subPanel.js';
 const query = new URLSearchParams(location.search);
 const player = document.querySelector('#player');
-var plyr;
-var vtt = [];
-function vttToString(vtt) {
-    var output = 'WEBVTT';
-    for (var i = 0; i < vtt.length; i++) {
-        const from = `${new Date(vtt[i].time.from * 1000).toISOString().substr(11, 11)}0`;
-        const to = `${new Date(vtt[i].time.to * 1000).toISOString().substr(11, 11)}0`;
-        output += `\n\n${from} --> ${to}\n${vtt[i].text}`;
-    }
-    return output;
-}
-document.getElementById('subs').value;
+export var plyr;
 const eps = query.get('v');
 fetch(`${api}/v2/metadata/video/episode/${eps}`).then(res => res.json()).then(init);
 function init(metadata) {
@@ -74,8 +65,52 @@ function init(metadata) {
     pagetitle.innerText = `${metadata.seasonname} - Episode ${metadata.episode} - ${metadata.title}`;
     season.innerText = metadata.seasonname;
     episode.innerText = `Episode ${metadata.episode}`;
-    document.getElementById('subs').addEventListener('change', () => {
-        setVTT(document.getElementById('subs').value, metadata);
+    // document.getElementById('subs').addEventListener('change', () => {
+    //   setVTT((<HTMLTextAreaElement>document.getElementById('subs')).value, metadata)
+    // })
+    if ((metadata.season === 1 && metadata.episode === 367) || (metadata.season === 1 && metadata.episode === 368)) {
+        document.getElementById('tlprogress').style.display = 'none';
+        document.getElementById('timelineloading').remove();
+        document.getElementById('timeline').remove();
+        const error = document.createElement('p');
+        error.innerText = 'Sorry, but the timeline is not supported on this video.';
+        document.querySelector('.timelinecontainer').appendChild(error);
+    }
+    else {
+        const timeline = new Timeline('#timeline', metadata, '#timelineloading');
+        setInterval(() => {
+            timeline.updateProgressPosition('#tlprogress', plyr.currentTime, plyr.duration);
+        }, 100);
+    }
+    //Initialize Subtitle Panel
+    const subpanel = new SubPanel('.subcontainer', metadata);
+    document.getElementById('export').addEventListener('click', () => {
+        const id = `s${metadata.season.toString().padStart(2, '0')}.e${metadata.episode.toString().padStart(3, '0')}`;
+        const time = (new Date()).toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '');
+        const vtt = subs.toString();
+        const element = document.createElement('a');
+        element.setAttribute('href', `data:text/vtt;charset=utf-8,${encodeURIComponent(vtt)}`);
+        element.setAttribute('download', `${id}-${time}.vtt`);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    });
+    //Fetch video ffprobe so we can use , and . to skip between frames
+    fetch(`https://cdn.unusann.us/ffprobe.php?file=${metadata.sources[metadata.sources.length - 1].src.replace('//cdn.unusannusarchive.tk', '')}`).then(res => res.text()).then(res => {
+        const fps = parseFloat(res.replace(/([0-9][0-9](.[0-9][0-9])? fps)|[^]/g, '$1'));
+        document.addEventListener('keyup', (e) => {
+            if (document.querySelector('.plyr') === document.activeElement) {
+                if (e.code === 'Comma') {
+                    //Back one frame
+                    plyr.currentTime -= (1000 / fps) / 1000;
+                }
+                else if (e.code === 'Period') {
+                    //Forward one frame
+                    plyr.currentTime += (1000 / fps) / 1000;
+                }
+            }
+        });
     });
 }
 setInterval(displayVTT, 100);
@@ -96,10 +131,10 @@ function displayVTT() {
         document.querySelector('.plyr__captions').appendChild(plyr__caption);
     }
     var hasCaption = false;
-    for (var i = 0; i < vtt.length; i++) {
-        if (vtt[i].time.from < plyr.currentTime && vtt[i].time.to > plyr.currentTime) {
+    for (var i = 0; i < subs.length; i++) {
+        if (subs[i].time.from < plyr.currentTime && subs[i].time.to > plyr.currentTime) {
             hasCaption = true;
-            document.querySelector('.plyr__caption').innerHTML = vtt[i].text;
+            document.querySelector('.plyr__caption').innerHTML = subs[i].text;
         }
     }
     if (!hasCaption) {
@@ -107,18 +142,18 @@ function displayVTT() {
     }
 }
 function setVTT(text, metadata) {
-    vtt.push({
+    subs.push({
         text,
         time: {
             from: plyr.currentTime,
             to: plyr.currentTime + 10
         }
     });
-    localStorage.setItem(`unsaved-sub-${query.get('v')}`, JSON.stringify(vtt));
-    console.log(vttToString(vtt));
+    localStorage.setItem(`unsaved-sub-${query.get('v')}`, JSON.stringify(subs));
+    console.log(subs.toString());
 }
 document.getElementById('back').addEventListener('click', () => {
-    localStorage.setItem(`unsaved-sub-${query.get('v')}`, JSON.stringify(vtt));
+    localStorage.setItem(`unsaved-sub-${query.get('v')}`, JSON.stringify(subs));
     location.href = '/';
 });
 function supportsWebp() {

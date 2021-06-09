@@ -1,0 +1,12 @@
+.playergrid {
+  display: inline-grid;
+  grid-template-columns: 1000px auto;
+
+  @media (max-width: 1322px) {
+    grid-template-columns: calc(100% - 322px) auto;
+  }
+
+  @media (max-width: 630px) {
+    grid-template-columns: 100%;
+  }
+}

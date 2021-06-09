@@ -1,0 +1,134 @@
+div.subcontainer {
+  display: inline-block;
+  width: 315px;
+  height: 563px;
+  background: #29292d;
+  border-radius: 10px;
+  position: relative;
+  margin-left: 7px;
+  @media (max-width: 630px) {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .import {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 7px;
+    left: 7px;
+    &:hover {
+      background-color: #4d4d55;
+      border-radius: 100%;
+      padding: 5px;
+      transform: translate(-5px, 5px);
+    }
+  }
+
+  .add {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 7px;
+    transform: translateX(-15.5px);
+    &:hover {
+      background-color: #4d4d55;
+      border-radius: 100%;
+      padding: 5px;
+      transform: translate(-20.5px, 5px);
+    }
+  }
+
+  .export {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 7px;
+    right: 7px;
+    &:hover {
+      background: #4d4d55;
+      border-radius: 100%;
+      padding: 5px;
+      transform: translate(5px, 5px);
+    }
+  }
+
+  .subs {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    height: calc(100% - 48px);
+
+    .sub {
+      position: relative;
+      width: calc(100% - 13px); // 302px
+      height: 98px;
+      background: #3b3b41;
+      margin: 6.5px;
+      border-radius: 10px;
+      text-align: left;
+      
+      textarea.subtext {
+        font-family: arial;
+        width: calc(100% - 112px); // 190
+        height: 78px;
+        background: #4d4d55;
+        border: none;
+        margin: 3px;
+        border-radius: 10px;
+        color: #ffffff;
+        resize: none;
+        padding: 7px;
+        &:focus {
+          outline: none;
+        }
+      }
+  
+      textarea.time {
+        width: 79px;
+        height: 25px;
+        line-height: 25px;
+        padding: 0;
+        text-align: center;
+        background: #4d4d55;
+        border: none;
+        border-radius: 10px;
+        color: #ffffff;
+        resize: none;
+        font-family: arial;
+        &:focus {
+          outline: none;
+        }
+  
+        &.from {
+          position: absolute;
+          top: 3.5px;
+          right: 9px;
+        }
+  
+        &.to {
+          position: absolute;
+          bottom: 3.5px;
+          right: 9px;
+        }
+      }
+  
+      .del {
+        cursor: pointer;
+        position: absolute;
+        top: 37px;
+        right: 36px;
+        &:hover {
+          background-color: #4d4d55;
+          border-radius: 100%;
+          padding: 5px;
+          transform: translate(5px, -5px);
+        }
+      }
+    }
+  }
+
+}

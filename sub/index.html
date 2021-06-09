@@ -1,24 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title id="pagetitle"></title>
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="//cdn.plyr.io/3.6.3/plyr.css" />
-    <meta charset="utf-8" />
   </head>
   <body>
     <a href="#" id="back">Close</a>
 
     <noscript><h1 style="color:#ff0000">PLEASE ENABLE JAVASCRIPT FOR THIS SITE TO WORK!</h1></noscript>
 
-    <video id="player" playsinline controls crossorigin="anonymous"></video>
+    <div class="playergrid">
+      <div>
+        <video id="player" playsinline controls></video>
+      </div>
+
+      <div class="subcontainer">
+        <template id="subtemplate">
+          <div class="sub" data-from="0" data-to="3" data-text="">
+            <textarea class="subtext" id="subtext" placeholder="Type subtitle here (HTML markup supported)" data-oldvalue=""></textarea>
+            <textarea class="time from" id="subfrom" placeholder="00:00" data-secvalue="0">00:00</textarea>
+            <img src="/assets/img/delete_black.svg" id="delsub" class="del" /><br />
+            <textarea class="time to" id="subto" placeholder="00:03" data-secvalue="3">00:03</textarea>
+          </div>
+        </template>
+        <div class="subs" id="subs">
+          <p id="nosubs" style="color:lightgray;">No subtitles added yet. Press the plus on the bottom of this panel to get started!</p>
+        </div>
+        <img src="/assets/img/file_upload_black.svg" id="importsub" class="import" alt="Import Subtitles" />
+        <img src="/assets/img/add_circle_black.svg" id="addsub" class="add" alt="Add Subtitle" />
+        <img src="/assets/img/file_download_black.svg" id="exportsub" class="export" alt="Save Subtitles" />
+      </div>
+    </div>
 
     <div id="info">
       <h1 id="title">Fetching Metadata...</h1>
       <p><span id="season"></span> - <span id="episode"></span></p>
+      <a href="#" id="export"><img src="/assets/img/ios_share_black.svg" /> Export Subtitles </a>
     </div>
 
-    <textarea id="subs" rows="5" cols="100" placeholder="everytime you click out of this box the current text inside it will be added to the video's captions for 10 seconds. (this system will be improved later)"></textarea>
+    <div class="timelinecontainer">
+      <div class="tlprogresscontainer">
+        <div id="tlprogress">
+          <div class="circle"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+      <p id="timelineloading">Loading...</p>
+      <canvas id="timeline" width="1322" height="185"></canvas>
+    </div>
 
     <script src="//cdn.plyr.io/3.6.3/plyr.js"></script>
     <script src="js/main.js" type="module"></script>
