@@ -5,7 +5,7 @@ import { api } from '../ts/_vars.js'
 
 var globalMetadata:GlobalMetadata = {}
 
-fetch(`${api}/v2/metadata/video/all`).then(res => res.json()).then((metadata:any) => {
+fetch(`${api}/v2/metadata/all`).then(res => res.json()).then((metadata:any) => {
   globalMetadata.videos = metadata
   for (var s = 0; s < metadata.length; s++) {
     for (var e = 0; e < metadata[s].length; e++) {

@@ -96,9 +96,7 @@ export class SubPanel {
 
     //loop through subs to find the right one and update it
     for (var i = 0; i < subs.length; i++) {
-      console.log(fakeSub, subs[i])
       if (subs[i].time.from === fakeSub.time.from && subs[i].time.to === fakeSub.time.to && subs[i].text === fakeSub.text) {
-        console.log('correct subs', i)
         subs[i] = {
           time: {
             from: this.timeStringToSeconds((<HTMLTextAreaElement>parent.querySelector('#subfrom')).value),
@@ -109,7 +107,6 @@ export class SubPanel {
         parent.querySelector('#subfrom').setAttribute('data-secvalue', this.timeStringToSeconds((<HTMLTextAreaElement>parent.querySelector('#subfrom')).value).toString())
         parent.querySelector('#subto').setAttribute('data-secvalue', this.timeStringToSeconds((<HTMLTextAreaElement>parent.querySelector('#subto')).value).toString())
         parent.querySelector('#subtext').setAttribute('data-oldvalue', (<HTMLTextAreaElement>parent.querySelector('#subtext')).value)
-        console.log(subs)
       }
     }
   }
@@ -133,9 +130,7 @@ export class SubPanel {
 
     //loop through subs to find the right sub and remove it from subs array
     for (var i = 0; i < subs.length; i++) {
-      console.log(fakeSub, subs[i])
       if (subs[i].time.from === fakeSub.time.from && subs[i].time.to === fakeSub.time.to && subs[i].text === fakeSub.text) {
-        console.log('deleted')
         subs.splice(i, 1)
       }
     }
@@ -143,8 +138,6 @@ export class SubPanel {
     if (subs.length === 0) {
       this.subsList.innerHTML = '<p id="nosubs" style="color:lightgray;">No subtitles added yet. Press the plus on the bottom of this panel to get started!</p>'
     }
-
-    console.log(subs)
 
     parent.remove()
   }
@@ -173,7 +166,7 @@ export class SubPanel {
 
     const element = document.createElement('a')
     element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(JSON.stringify(subs, null, 2))}`)
-    element.setAttribute('download', `${id}-${time}.uasub`)
+    element.setAttribute('download', `${id} ${time}.uasub`)
     element.style.display = 'none'
 
     document.body.appendChild(element)

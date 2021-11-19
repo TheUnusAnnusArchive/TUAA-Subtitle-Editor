@@ -64,7 +64,6 @@ export class Timeline {
       //Initialize canvas
       const canvas = <HTMLCanvasElement>Element
       const padding = 0
-      console.log(canvas.width)
       canvas.height = canvas.offsetHeight + padding * 2
       const ctx = canvas.getContext('2d')
       ctx.translate(0, canvas.offsetHeight / 2 + padding)
@@ -107,7 +106,6 @@ export class Timeline {
       ProgressBar = progressBar
     }
     const pixels = (sec/maxSec)*this.element.clientWidth
-    console.log(pixels)
     ProgressBar.style.transform = `translateY(-10px) translateX(${pixels-1}px)`
   }
 }

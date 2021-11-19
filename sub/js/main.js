@@ -86,11 +86,11 @@ function init(metadata) {
     const subpanel = new SubPanel('.subcontainer', metadata);
     document.getElementById('export').addEventListener('click', () => {
         const id = `s${metadata.season.toString().padStart(2, '0')}.e${metadata.episode.toString().padStart(3, '0')}`;
-        const time = (new Date()).toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '');
+        const time = (new Date()).toISOString().slice(0, 19).replace(/:/g, '-').replace('T', ' ');
         const vtt = subs.toString();
         const element = document.createElement('a');
         element.setAttribute('href', `data:text/vtt;charset=utf-8,${encodeURIComponent(vtt)}`);
-        element.setAttribute('download', `${id}-${time}.vtt`);
+        element.setAttribute('download', `${id} ${time}.vtt`);
         element.style.display = 'none';
         document.body.appendChild(element);
         element.click();
@@ -134,23 +134,12 @@ function displayVTT() {
     for (var i = 0; i < subs.length; i++) {
         if (subs[i].time.from < plyr.currentTime && subs[i].time.to > plyr.currentTime) {
             hasCaption = true;
-            document.querySelector('.plyr__caption').innerHTML = subs[i].text;
+            document.querySelector('.plyr__caption').innerText = subs[i].text;
         }
     }
     if (!hasCaption) {
         document.querySelector('.plyr__caption').innerHTML = '';
     }
-}
-function setVTT(text, metadata) {
-    subs.push({
-        text,
-        time: {
-            from: plyr.currentTime,
-            to: plyr.currentTime + 10
-        }
-    });
-    localStorage.setItem(`unsaved-sub-${query.get('v')}`, JSON.stringify(subs));
-    console.log(subs.toString());
 }
 document.getElementById('back').addEventListener('click', () => {
     localStorage.setItem(`unsaved-sub-${query.get('v')}`, JSON.stringify(subs));

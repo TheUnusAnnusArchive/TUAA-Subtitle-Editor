@@ -1,3 +1,3 @@
-const api = 'https://unusann.us/api'
+const api = 'https://api.unusann.us'
 
 export { api }

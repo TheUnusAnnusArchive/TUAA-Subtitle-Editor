@@ -8,7 +8,7 @@ const player = <HTMLVideoElement>document.querySelector('#player')
 export var plyr:any
 
 const eps = query.get('v')
-fetch(`${api}/v2/metadata/video/episode/${eps}`).then(res => res.json()).then(init)
+fetch(`${api}/v2/metadata/episode/${eps}`).then(res => res.json()).then(init)
 
 function init(metadata:Metadata) {
   if (metadata.posters?.[0]?.type == 'image/webp' || metadata.thumbnail.endsWith('.webp')) {
@@ -43,7 +43,7 @@ function init(metadata:Metadata) {
     autoplay: true,
     disableContextMenu: false,
     previewThumbnails: {
-      src: `/api/v2/previews/${eps}`
+      src: `${api}/v2/previews/${eps}`
     }
   })
 
@@ -99,12 +99,12 @@ function init(metadata:Metadata) {
 
   document.getElementById('export').addEventListener('click', () => {
     const id = `s${metadata.season.toString().padStart(2, '0')}.e${metadata.episode.toString().padStart(3, '0')}`
-    const time = (new Date()).toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '')
+    const time = (new Date()).toISOString().slice(0, 19).replace(/:/g, '-').replace('T', ' ')
     const vtt = subs.toString()
     
     const element = document.createElement('a')
     element.setAttribute('href', `data:text/vtt;charset=utf-8,${encodeURIComponent(vtt)}`)
-    element.setAttribute('download', `${id}-${time}.vtt`)
+    element.setAttribute('download', `${id} ${time}.vtt`)
     element.style.display = 'none'
 
     document.body.appendChild(element)
@@ -154,28 +154,14 @@ function displayVTT() {
   var hasCaption = false
   for (var i = 0; i < subs.length; i++) {
     if (subs[i].time.from < plyr.currentTime && subs[i].time.to > plyr.currentTime) {
-      hasCaption = true
+      hasCaption = true;
     
-      document.querySelector('.plyr__caption').innerHTML = subs[i].text
+      (<HTMLElement>document.querySelector('.plyr__caption')).innerText = subs[i].text
     }
   }
   if (!hasCaption) {
     document.querySelector('.plyr__caption').innerHTML = ''
   }
-}
-
-function setVTT(text:string, metadata:Metadata) {
-  subs.push({
-    text,
-    time: {
-      from: plyr.currentTime,
-      to: plyr.currentTime+10
-    }
-  })
-
-  localStorage.setItem(`unsaved-sub-${query.get('v')}`, JSON.stringify(subs))
-
-  console.log(subs.toString())
 }
 
 document.getElementById('back').addEventListener('click', () => {
