@@ -1,1 +1,18 @@
-{"compilerOptions":{"target":"ES6","noImplicitAny":false,"strictNullChecks":false,"typeRoots":["node_modules/@types","*/types"],"esModuleInterop":true,"skipLibCheck":true,"forceConsistentCasingInFileNames":true,"sourceMap": true}}
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "typeRoots": ["node_modules/@types", "*/types"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "lib": [
+      "ES6",
+      "ES2017.String",
+      "ES2016.Array.Include",
+      "DOM"
+    ]
+  }
+}

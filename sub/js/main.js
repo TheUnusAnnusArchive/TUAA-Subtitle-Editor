@@ -5,7 +5,7 @@ const query = new URLSearchParams(location.search);
 const player = document.querySelector('#player');
 export var plyr;
 const eps = query.get('v');
-fetch(`${api}/v2/metadata/video/episode/${eps}`).then(res => res.json()).then(init);
+fetch(`${api}/v2/metadata/episode/${eps}`).then(res => res.json()).then(init);
 function init(metadata) {
     var _a, _b, _c, _d, _e, _f, _g, _h;
     if (((_b = (_a = metadata.posters) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.type) == 'image/webp' || metadata.thumbnail.endsWith('.webp')) {
@@ -39,7 +39,7 @@ function init(metadata) {
         autoplay: true,
         disableContextMenu: false,
         previewThumbnails: {
-            src: `/api/v2/previews/${eps}`
+            src: `${api}/v2/previews/${eps}`
         }
     });
     plyr.source = {

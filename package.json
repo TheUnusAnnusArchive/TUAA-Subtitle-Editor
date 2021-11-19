@@ -1,0 +1,21 @@
+{
+  "name": "tuaa-subtitle-editor",
+  "version": "1.0.0",
+  "description": "The Unfinished Subtitle Editor For The Unus Annus Archive",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UnusAnnusArchived/TUAA-Subtitle-Editor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UnusAnnusArchived/TUAA-Subtitle-Editor/issues"
+  },
+  "homepage": "https://github.com/UnusAnnusArchived/TUAA-Subtitle-Editor#readme"
+}

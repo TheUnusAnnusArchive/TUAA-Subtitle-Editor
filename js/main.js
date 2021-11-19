@@ -1,7 +1,7 @@
 import { videosLoaded } from './search.js';
 import { api } from '../ts/_vars.js';
 var globalMetadata = {};
-fetch(`${api}/v2/metadata/video/all`).then(res => res.json()).then((metadata) => {
+fetch(`${api}/v2/metadata/all`).then(res => res.json()).then((metadata) => {
     globalMetadata.videos = metadata;
     for (var s = 0; s < metadata.length; s++) {
         for (var e = 0; e < metadata[s].length; e++) {
